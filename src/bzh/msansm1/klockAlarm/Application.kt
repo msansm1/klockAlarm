@@ -8,13 +8,14 @@ import io.ktor.application.install
 import io.ktor.features.*
 import io.ktor.freemarker.FreeMarker
 import io.ktor.freemarker.FreeMarkerContent
+import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.resources
 import io.ktor.http.content.static
 import io.ktor.jackson.jackson
 import io.ktor.request.receive
 import io.ktor.response.respond
-import io.ktor.response.respondText
 import io.ktor.routing.get
+import io.ktor.routing.post
 import io.ktor.routing.routing
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -58,15 +59,10 @@ fun Application.module(testing: Boolean = false) {
             val alarms = getAlarms();
             call.respond(alarms)
         }
-
-        install(StatusPages) {
-            exception<AuthenticationException> { cause ->
-                call.respond(HttpStatusCode.Unauthorized)
-            }
-            exception<AuthorizationException> { cause ->
-                call.respond(HttpStatusCode.Forbidden)
-            }
-
+        post("/api/v1") {
+            val alarm = call.receive(Alarm::class)
+            saveAlarms(alarm)
+            call.respond(HttpStatusCode.OK)
         }
     }
 }

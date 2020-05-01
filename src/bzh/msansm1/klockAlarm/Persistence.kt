@@ -8,6 +8,10 @@ fun getAlarms(): List<Alarm> {
     return alarms
 }
 
-fun saveAlarms(alarms: Alarm) {
-    File("/opt/alarms.txt").writeText(alarms.toString())
+fun saveAlarms(alarm: Alarm) {
+    val alarms = getAlarms()
+    val alarmStr = StringBuilder("")
+    alarms.forEach { alarmStr.append("${it}\n") }
+    alarmStr.append("$alarm\n")
+    File("/opt/alarms.txt").writeText(alarmStr.toString())
 }
