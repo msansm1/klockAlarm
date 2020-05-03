@@ -1,0 +1,27 @@
+body {
+    font-size: 20px;
+    width: 100%;
+}
+
+.alarms {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+}
+
+.alarm {
+    display: flex;
+    background-color: #ddd;
+    flex: 1 1 auto;
+    flex-flow: row wrap;
+}
+
+.alarm-field-text-disabled {
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: row wrap;
+}
+
+.alarm-field {
+    flex: 1 1 auto;
+}
