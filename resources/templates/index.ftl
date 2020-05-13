@@ -62,15 +62,18 @@
     </div>
 
     <h2>New Alarm</h2>
-    <div>
+    <form method="post" action="/alarm">
         <div class="alarm">
                 <div class="alarm-field-text-disabled">
                     <div class="alarm-field">Music</div>
-                    <div class="alarm-field"><select></select></div>
+                    <div class="alarm-field"><select id="music" name="music">
+                        <option value="111">111</option>
+                        <option value="222">222</option>
+                    </select></div>
                 </div>
                 <div class="alarm-field-text-disabled">
                     <div class="alarm-field">Hour</div>
-                    <div class="alarm-field"><input type="text"></div>
+                    <div class="alarm-field"><input type="text" id="hour" name="hour"></div>
                 </div>
                 <div class="alarm-field-text-disabled">
                     <div class="alarm-field"><input type="checkbox" id="enabled" name="enabled">
@@ -94,7 +97,7 @@
                 </div>
                 <div class="alarm-field-text-disabled">
                     <div class="alarm-field"><input type="checkbox" id="friday" name="friday">
-                        <label for="monday">Friday</label></div>
+                        <label for="friday">Friday</label></div>
                 </div>
                 <div class="alarm-field-text-disabled">
                     <div class="alarm-field"><input type="checkbox" id="saturday" name="saturday">
@@ -106,10 +109,10 @@
                 </div>
                 <div class="alarm-field-text-disabled">
                     <div class="alarm-field">
-                        <button name="Add_alarm" value="Add_alarm">Add alarm</button>
+                        <button name="Add_alarm" value="Add_alarm" type="submit">Add alarm</button>
                     </div>
                 </div>
         </div>
-    </div>
+    </form>
 </body>
 </html>
