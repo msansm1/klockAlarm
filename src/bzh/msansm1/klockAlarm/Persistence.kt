@@ -11,7 +11,7 @@ fun getAlarms(): List<Alarm> {
 fun saveAlarms(alarm: Alarm) {
     val alarms = getAlarms()
     val alarmStr = StringBuilder("")
-    alarms.forEach { alarmStr.append("${it}\n") }
+    alarms.forEach { if (it.id != alarm.id) alarmStr.append("${it}\n") }
     alarmStr.append("$alarm\n")
     File("/opt/alarms.txt").writeText(alarmStr.toString())
 }

@@ -51,24 +51,30 @@ fun Application.module(testing: Boolean = false) {
         get("/") {
             call.respond(FreeMarkerContent("index.ftl", mapOf("data" to getAlarms()), ""))
         }
-        post("/alarm") {
+        post("/") {
             val params = call.receive<Parameters>()
-            val alarm = Alarm(UUID.randomUUID().toString(),
-                    params["hour"].orEmpty(),
-                    params["music"].orEmpty(),
-                    params["enabled"].orEmpty().toBoolean(),
-                    params["monday"].orEmpty().toBoolean(),
-                    params["tuesday"].orEmpty().toBoolean(),
-                    params["wednesday"].orEmpty().toBoolean(),
-                    params["thursday"].orEmpty().toBoolean(),
-                    params["friday"].orEmpty().toBoolean(),
-                    params["saturday"].orEmpty().toBoolean(),
-                    params["sunday"].orEmpty().toBoolean())
+            var id = params["id"].orEmpty()
+            var prefixId = ""
+            if (id.isEmpty()) {
+                id = UUID.randomUUID().toString()
+            } else {
+                prefixId = "_${id}"
+            }
+            val alarm = Alarm(id,
+                    params["hour${prefixId}"].orEmpty(),
+                    params["music${prefixId}"].orEmpty(),
+                    params["enabled${prefixId}"].orEmpty().toBoolean(),
+                    params["monday${prefixId}"].orEmpty().toBoolean(),
+                    params["tuesday${prefixId}"].orEmpty().toBoolean(),
+                    params["wednesday${prefixId}"].orEmpty().toBoolean(),
+                    params["thursday${prefixId}"].orEmpty().toBoolean(),
+                    params["friday${prefixId}"].orEmpty().toBoolean(),
+                    params["saturday${prefixId}"].orEmpty().toBoolean(),
+                    params["sunday${prefixId}"].orEmpty().toBoolean())
             saveAlarms(alarm)
             call.respond(FreeMarkerContent("index.ftl", mapOf("data" to getAlarms()), ""))
         }
 
-        // Static feature. Try to access `/static/ktor_logo.svg`
         static("/static") {
             resources("static")
         }
