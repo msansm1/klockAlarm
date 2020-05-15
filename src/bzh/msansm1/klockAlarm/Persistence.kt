@@ -15,3 +15,10 @@ fun saveAlarms(alarm: Alarm) {
     alarmStr.append("$alarm\n")
     File("/opt/alarms.txt").writeText(alarmStr.toString())
 }
+
+fun deleteAlarm(alarm: Alarm) {
+    val alarms = getAlarms()
+    val alarmStr = StringBuilder("")
+    alarms.forEach { if (it.id != alarm.id) alarmStr.append("${it}\n") }
+    File("/opt/alarms.txt").writeText(alarmStr.toString())
+}

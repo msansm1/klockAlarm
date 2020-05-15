@@ -68,6 +68,11 @@
                         <div class="alarm-field"><input type="checkbox" id="sunday_${alarm.id}" name="sunday_${alarm.id}" onclick="javascript:updateAlarm('update_${alarm.id}')" <#if alarm.sunday>checked</#if>>
                             <label for="sunday_${alarm.id}">Sunday</label></div>
                     </div>
+                    <div class="alarm-field-text-disabled">
+                        <div class="alarm-field">
+                            <button name="delete_${alarm.id}" value="delete_${alarm.id}" type="submit">Delete alarm</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </#list>

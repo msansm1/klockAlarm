@@ -71,7 +71,11 @@ fun Application.module(testing: Boolean = false) {
                     params["friday${prefixId}"].orEmpty().toBoolean(),
                     params["saturday${prefixId}"].orEmpty().toBoolean(),
                     params["sunday${prefixId}"].orEmpty().toBoolean())
-            saveAlarms(alarm)
+            if (params["delete${prefixId}"].orEmpty().isNotEmpty()) {
+                deleteAlarm(alarm)
+            } else {
+                saveAlarms(alarm)
+            }
             call.respond(FreeMarkerContent("index.ftl", mapOf("data" to getAlarms()), ""))
         }
 
