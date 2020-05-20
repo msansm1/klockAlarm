@@ -63,14 +63,14 @@ fun Application.module(testing: Boolean = false) {
             val alarm = Alarm(id,
                     params["hour${prefixId}"].orEmpty(),
                     params["music${prefixId}"].orEmpty(),
-                    params["enabled${prefixId}"].orEmpty().toBoolean(),
-                    params["monday${prefixId}"].orEmpty().toBoolean(),
-                    params["tuesday${prefixId}"].orEmpty().toBoolean(),
-                    params["wednesday${prefixId}"].orEmpty().toBoolean(),
-                    params["thursday${prefixId}"].orEmpty().toBoolean(),
-                    params["friday${prefixId}"].orEmpty().toBoolean(),
-                    params["saturday${prefixId}"].orEmpty().toBoolean(),
-                    params["sunday${prefixId}"].orEmpty().toBoolean())
+                    params["enabled${prefixId}"].orEmpty().checkboxValueToBoolean(),
+                    params["monday${prefixId}"].orEmpty().checkboxValueToBoolean(),
+                    params["tuesday${prefixId}"].orEmpty().checkboxValueToBoolean(),
+                    params["wednesday${prefixId}"].orEmpty().checkboxValueToBoolean(),
+                    params["thursday${prefixId}"].orEmpty().checkboxValueToBoolean(),
+                    params["friday${prefixId}"].orEmpty().checkboxValueToBoolean(),
+                    params["saturday${prefixId}"].orEmpty().checkboxValueToBoolean(),
+                    params["sunday${prefixId}"].orEmpty().checkboxValueToBoolean())
             if (params["delete${prefixId}"].orEmpty().isNotEmpty()) {
                 deleteAlarm(alarm)
             } else {
@@ -119,4 +119,12 @@ fun buildAlarm(alarmStr: String): Alarm {
             params[5].toBoolean(), params[6].toBoolean(), params[7].toBoolean(), params[8].toBoolean(),
             params[9].toBoolean(), params[10].toBoolean()
     )
+}
+
+fun String.checkboxValueToBoolean(): Boolean {
+    var res = false
+    if ("on" == this) {
+        res = true;
+    }
+    return res
 }
