@@ -22,7 +22,7 @@
     <div></div>
 
     <div class="alarms">
-        <#list data as alarm>
+        <#list data.alarms as alarm>
             <form method="post" action="/" name="update_${alarm.id}" id="update_${alarm.id}">
                 <div class="alarm">
                     <input type="hidden" id="id_${alarm.id}" name="id" value="${alarm.id}">
@@ -84,8 +84,9 @@
                 <div class="alarm-field-text-disabled">
                     <div class="alarm-field">Music</div>
                     <div class="alarm-field"><select id="music" name="music">
-                        <option value="111">111</option>
-                        <option value="222">222</option>
+                        <#list data.musics as music>
+                        <option value="${music}">${music}</option>
+                        </#list>
                     </select></div>
                 </div>
                 <div class="alarm-field-text-disabled">

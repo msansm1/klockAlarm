@@ -18,10 +18,13 @@ import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
+import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
+@ExperimentalStdlibApi
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
@@ -49,7 +52,11 @@ fun Application.module(testing: Boolean = false) {
 
     routing {
         get("/") {
-            call.respond(FreeMarkerContent("index.ftl", mapOf("data" to getAlarms()), ""))
+            val dataMap = buildMap<String, List<*>>(2) {
+                put("alarms", getAlarms())
+                put("musics", getMusicList())
+            }
+            call.respond(FreeMarkerContent("index.ftl", mapOf("data" to dataMap), ""))
         }
         post("/") {
             val params = call.receive<Parameters>()
@@ -127,4 +134,12 @@ fun String.checkboxValueToBoolean(): Boolean {
         res = true;
     }
     return res
+}
+
+fun getMusicList(): List<String> {
+    val musics = ArrayList<String>()
+    File("/opt/klockAlarm/music/").walk().filter { it.isFile }.forEach {
+        musics.add(it.name)
+    }
+    return musics
 }
