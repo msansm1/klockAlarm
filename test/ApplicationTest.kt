@@ -9,6 +9,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class ApplicationTest {
+    @ExperimentalStdlibApi
     @Test
     fun testRoot() {
         withTestApplication({ module(testing = true) }) {
